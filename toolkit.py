@@ -47,6 +47,7 @@ def choose_file():
 
     else:
         print_error(user_ans, True)
+        choose_file()
 
 
 def functions_to_dict():
