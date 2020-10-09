@@ -1,5 +1,4 @@
 from inspect import getmembers, isfunction
-from importlib import import_module
 import os
 
 import pathlib
@@ -7,7 +6,6 @@ import sys
 
 my_path = pathlib.Path().absolute()
 sys.path.insert(0, my_path)
-
 
 # This is a dict which will be filled by functions_to_dict()
 tasks = {}
@@ -18,7 +16,7 @@ def choose_file():
     global file
 
     print('Вам доступен список файлов')
-    print('')
+    print()
 
     # Put file names to the files_list
     number = 1
@@ -27,12 +25,11 @@ def choose_file():
         current_file_name = os.path.basename(__file__)
 
         if file.is_file() and '.py' in file.name and file.name not in current_file_name:
-
             files_list[str(number)] = file.name
             print(str(number) + '. ' + file.name)  # print the file name
             number += 1
 
-    print('')
+    print()
     text = 'Выберите файл из предложенного списка\n' \
            'Укажите номер файла: '
 
@@ -51,10 +48,8 @@ def choose_file():
 
 
 def functions_to_dict():
-
     for function_name, link in getmembers(file):
         if isfunction(link):
-
             # Save number in function's name
             tmp = function_name.split('_')
             number = tmp[-1]
@@ -67,17 +62,17 @@ def functions_to_dict():
         text = 'В файле отсутствуют задачи, пожалуйста, добавьте хотя бы одну'
 
         print(text)
-        print('')
+        print()
 
 
 def solve(method):
-    print('')
+    print()
 
     # Start the function from file
     getattr(file, method)()
 
     while True:
-        print('')
+        print()
 
         # asking for restart the task
         text = 'Чтобы перезапустить задачу, нажмите Enter\n' \
@@ -87,7 +82,7 @@ def solve(method):
         user_ans = str(input(text))
 
         if user_ans == '':
-            print('')
+            print()
 
             # Start the function from file
             getattr(file, method)()
@@ -96,28 +91,28 @@ def solve(method):
             quit()
 
         else:
-            print('')
+            print()
             break
 
 
-def print_error(user_ans, isFile):
-    print('')
-    if isFile:
-        print("Файла  под номером " + str(user_ans) + " не существует, повторите попытку")
+def print_error(user_ans, is_file):
+    print()
+    if is_file:
+        print('Файла  под номером ' + str(user_ans) + ' не существует, повторите попытку')
     else:
-        print("Задачи " + str(user_ans) + " не существует, повторите попытку")
+        print('Задачи ' + str(user_ans) + ' не существует, повторите попытку')
 
 
 def start_task_by_number():
     while True:
-        print('')
+        print()
         print('Вам доступен список задач')
-        print('')
+        print()
 
         for number, task in tasks.items():
             print(number + '. ' + task)
 
-        print('')
+        print()
 
         text = 'Чтобы выйти из программы, напишите quit\n' \
                'Введите номер задачи: '
@@ -145,3 +140,4 @@ def start():
 
 #  Automatically start the program
 start()
+
